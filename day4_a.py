@@ -19,21 +19,22 @@ def left(board):
                 ttl += x
     return ttl
 
-a = []
-for n in nums:
-    for i, board in enumerate(sp_boards):
-        # mark
-        sp_boards[i] = mark(board, n)
-    # check
-    for i, board in enumerate(sp_boards):
-        for row in board:
-            if set(row) == {'X'}:
-                a.append({n: left(board)})
-        cols = [[row[i] for row in board] for i in range(5)] 
-        for c in cols:
-            if set(c) == {'X'}:
-                a.append({n: left(board)})
-        
-final = [k* v for k, v in a[0].items()][0]
-print(final)
+def check(nums, sp_boards):
+    for n in nums:
+        for i, board in enumerate(sp_boards):
+            # mark
+            sp_boards[i] = mark(board, n)
+        # check
+        for i, board in enumerate(sp_boards):
+            for row in board:
+                if set(row) == {'X'}:
+                    return n * left(board)
+            cols = [[row[i] for row in board] for i in range(5)] 
+            for c in cols:
+                if set(c) == {'X'}:
+                    return n * left(board)
+
+    return None
+
+print(check(nums, sp_boards))
 
